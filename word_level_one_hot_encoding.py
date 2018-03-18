@@ -11,11 +11,11 @@ def get_indexed_words(samples):
 
 
 def get_one_hot_encodings(token_index):
-    length = len(token_index.values()) + 1
-    results = np.zeros(shape=(len(samples), length, length))
+    max_length = 10
+    results = np.zeros(shape=(len(samples), max_length, len(token_index.values()) + 1))
 
     for i, sample in enumerate(samples):
-        for j, word in list(enumerate(sample.split()))[:length]:
+        for j, word in list(enumerate(sample.split()))[:max_length]:
             index = token_index.get(word)
             results[i, j, index] = 1
 
@@ -24,9 +24,7 @@ def get_one_hot_encodings(token_index):
 
 samples = ["The cat sat on the mat.", "The dog ate my homework"]
 
-
 token_index = get_indexed_words(samples)
 one_hot_encoding = get_one_hot_encodings(token_index)
-
 print("Results: ", one_hot_encoding)
 
